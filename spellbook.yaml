@@ -13313,10 +13313,12 @@ metadata:
 spec:
   cephVersion:
     # see the "Cluster Settings" section below for more details on which image of ceph to run
-    image: ceph/ceph:v15.2.4
-  dataDirHostPath: /var/lib/rook
+    image: quay.io/ceph/ceph:v17.2.3
+  dataDirHostPath: /data/rook
   mon:
     count: 1
+  dashboard:
+    enabled: true
 #    allowMultiplePerNode: true
   storage:
     useAllNodes: true
