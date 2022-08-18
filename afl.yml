@@ -4,22 +4,22 @@ kind: Deployment
 metadata:
   name: fm-deployment
   labels:
-    k8s-app: fzz
+    k8s-app: fmaster
     kubernetes.io/cluster-service: "true"
 spec:
   replicas: 1
   selector:
     matchLabels:
-      k8s-app: fzz
+      k8s-app: fmaster
   template:
     metadata:
       labels:
-        k8s-app: fzz
+        k8s-app: fmaster
         kubernetes.io/cluster-service: "true"
     spec:
       containers:
       - name: fzzmaster
-        image: antojoseph/libfuzzer:latest
+        image: 172.20.12.114:5000/afl-llvm:latest
         command: ['afl-fuzz'] 
         args: ['-i', '/opt/seed', '-o', 'sync_dir', '-M', '$(HOSTNAME)' ,'/opt/aflpng/libpng/.libs/pngtest','@@']
         env:
@@ -60,7 +60,7 @@ spec:
     spec:
       containers:
       - name: fzzslave
-        image: antojoseph/libfuzzer:latest
+        image: 172.20.12.114:5000/afl-llvm:latest
         command: ['afl-fuzz'] 
         args: ['-i', '/opt/seed', '-o', 'sync_dir', '-S', '$(HOSTNAME)' ,'/opt/aflpng/libpng/.libs/pngtest','@@']
         env:
